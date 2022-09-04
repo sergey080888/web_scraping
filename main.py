@@ -31,4 +31,4 @@ for article in articles:
             article_ = soup.find(id="post-content-body")
             art_ = article_.text.split(sep=' ')
             if keyword in art_:
-                print(f'{keyword} <дата> {data__} - <заголовок> - {title} - <ссылка> - {link}')
+                print(f'<дата> {data__} - <заголовок> - {title} - <ссылка> - {link}')
