@@ -25,7 +25,7 @@ for article in articles:
         href = article.find(class_="tm-article-snippet__title-link").attrs["href"]
         link = base_url + href
         if keyword in art:
-            print(f'{keyword} <дата> {data__} - <заголовок> - {title} - <ссылка> - {link}')
+            print(f'<дата> {data__} - <заголовок> - {title} - <ссылка> - {link}')
         else:
             response = requests.get(link, headers=HEADERS)
             text_ = response.text
