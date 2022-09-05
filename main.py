@@ -1,4 +1,5 @@
 import requests
+import re
 import bs4
 KEYWORDS = ['дизайн', 'фото', 'web', 'python']
 HEADERS = {
@@ -16,20 +17,20 @@ soup = bs4.BeautifulSoup(text, features='html.parser')
 articles = soup.find_all('article')
 
 for article in articles:
-    art = article.text.replace('.', ' ').split()
-
+    # art = article.text
+    art = re.split(r'\W+', article.text)
     for keyword in KEYWORDS:
         data__ = article.find(class_="tm-article-snippet__datetime-published").find("time").attrs["title"]
         title = article.find("h2").find("span").text
         href = article.find(class_="tm-article-snippet__title-link").attrs["href"]
         link = base_url + href
         if keyword in art:
-            print(f' <дата> {data__} - <заголовок> - {title} - <ссылка> - {link}')
+            print(f'{keyword} <дата> {data__} - <заголовок> - {title} - <ссылка> - {link}')
         else:
             response = requests.get(link, headers=HEADERS)
             text_ = response.text
             soup = bs4.BeautifulSoup(text_, features='html.parser')
             article_ = soup.find(id="post-content-body")
-            art_ = article_.text.replace('.', ' ').split()
+            art_ = re.split(r'\W+', article_.text)
             if keyword in art_:
                 print(f'<дата> {data__} - <заголовок> - {title} - <ссылка> - {link}')
